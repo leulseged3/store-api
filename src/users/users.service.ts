@@ -10,7 +10,7 @@ import * as bcrypt from 'bcryptjs';
 export class UsersService {
   constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
 
-  async create(createUserDto: CreateUserDto): Promise<UserDto | undefined> {
+  async create(createUserDto: CreateUserDto) {
     const userExists = await this.userModel.findOne({ email: createUserDto.email });
 
     if (userExists) {
@@ -18,7 +18,7 @@ export class UsersService {
     }
     const hashedPassword = bcrypt.hashSync(createUserDto.password, 10);
 
-    const user = await this.userModel.create({
+    const user = new this.userModel({
       ...createUserDto,
       password: hashedPassword
     });
@@ -30,7 +30,7 @@ export class UsersService {
     return rest
   }
 
-  async showById(id: string): Promise<UserDto | undefined> {
+  async showById(id: string) {
     const user = await this.userModel.findById(id);
     const { password, ...rest } = user;
     return rest
