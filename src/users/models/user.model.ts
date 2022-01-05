@@ -10,4 +10,4 @@ export const UserSchema = new mongoose.Schema({
         enum: ['USER', 'STORE_KEEPER', 'ADMIN'],
         required: true
     }
-});
+}, { timestamps: true });
