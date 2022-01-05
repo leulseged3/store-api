@@ -1,16 +1,16 @@
-import { IsEmail, IsNotEmpty, IsJSON, IsString, IsEnum, IsObject } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsEnum } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString()
+  @IsNotEmpty()
   firstName: string;
 
-  @IsString()
+  @IsNotEmpty()
   lastName: string;
 
   @IsEmail()
   email: string;
 
-  @IsString()
+  @IsNotEmpty()
   password: string;
 
   @IsEnum(['USER', 'STORE_KEEPER', 'ADMIN'])
