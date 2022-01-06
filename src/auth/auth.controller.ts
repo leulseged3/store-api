@@ -8,7 +8,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) { }
   @Post()
   async login(@Body() authLoginDto: AuthLoginDto, @Headers() header) {
-    return this.authService.login(authLoginDto, header.usertype)
+    return this.authService.login(authLoginDto, header.body.usertype ? header.body.usertype : header.usertype)
   }
 
   @UseGuards(JwtAuthGuard)
