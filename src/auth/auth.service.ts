@@ -11,8 +11,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) { }
 
-  async login(authLoginDto: AuthLoginDto) {
-    const user = await this.validateUser(authLoginDto);
+  async login(authLoginDto: AuthLoginDto, userType: string) {
+    const user = await this.validateUser(authLoginDto, userType);
 
     const payload = {
       userId: user.id
@@ -23,9 +23,18 @@ export class AuthService {
     }
   }
 
-  async validateUser(authLoginDto: AuthLoginDto) {
+  async validateUser(authLoginDto: AuthLoginDto, userType: string) {
     const { email, password } = authLoginDto;
     const user = await this.userService.findByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    if (user.userType !== userType) {
+      throw new UnauthorizedException();
+    }
+
     const isPasswordMatch = bcrypt.compareSync(password, user.password);
 
     if (!isPasswordMatch) {
