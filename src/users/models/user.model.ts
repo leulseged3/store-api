@@ -7,7 +7,7 @@ export const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     userType: {
         type: String,
-        enum: ['USER', 'STORE_KEEPER', 'ADMIN'],
+        enum: ['INVESTOR', 'STORE_KEEPER', 'ADMIN'],
         required: true
     }
 }, { timestamps: true });

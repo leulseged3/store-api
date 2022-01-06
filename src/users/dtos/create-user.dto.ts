@@ -13,6 +13,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
-  @IsEnum(['USER', 'STORE_KEEPER', 'ADMIN'])
+  @IsEnum(['INVESTOR', 'STORE_KEEPER', 'ADMIN'])
   userType: string
 }
